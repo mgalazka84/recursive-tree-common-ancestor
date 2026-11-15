@@ -1,0 +1,9 @@
+n=2: 1 trees, 2 ordered pairs, exact agreement
+n=3: 2 trees, 12 ordered pairs, exact agreement
+n=4: 6 trees, 72 ordered pairs, exact agreement
+n=5: 24 trees, 480 ordered pairs, exact agreement
+n=6: 120 trees, 3,600 ordered pairs, exact agreement
+  Distance-two example: 6,496/10,224 = 406/639
+n=7: 720 trees, 30,240 ordered pairs, exact agreement
+n=8: 5,040 trees, 282,240 ordered pairs, exact agreement
+n=9: 40,320 trees, 2,903,040 ordered pairs, exact agreement
