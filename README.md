@@ -2,7 +2,7 @@
 
 Reproducibility materials for **The last common ancestor of two vertices at a prescribed distance in a random recursive tree**, by Marek Gałązka and Hanna Wdowicka.
 
-A new vertex chooses a parent uniformly among earlier vertices. If two uniformly chosen distinct vertices are exactly a specified number of edges apart, when was their last common ancestor born? The scripts check the paper's finite joint probabilities and reproduce its two figures. Version `v1.0` corresponds to the manuscript prepared for submission.
+A new vertex chooses a parent uniformly among earlier vertices. If two uniformly chosen distinct vertices are exactly a specified number of edges apart, when was their last common ancestor born? The scripts check the paper's finite joint probabilities and reproduce its two figures.
 
 ## Verify the finite identities
 
@@ -23,6 +23,6 @@ python3 checks/make_figure.py
 ```
 
 - [Figure 1](figures/two_equal_paths.pdf) shows two paths of length two in one labelled tree. Each path and its shared ancestor are derived from the same parent list.
-- [Figure 2](figures/conditional_laws.pdf) compares finite-tree probabilities and limiting curves. The finite values are obtained by convolving independent Bernoulli record indicators. The computation uses no random sampling.
+- [Figure 2](figures/conditional_laws.pdf) compares finite-tree probabilities and limiting curves. Panel (b) plots the inclusive upper tail at each birth label. The value at zero is one, and the drop immediately to its right is the conditional root probability. The finite values are obtained by convolving independent Bernoulli record indicators.
 
 The scripts write the vector PDFs into `figures/`. Neither check requires external data.

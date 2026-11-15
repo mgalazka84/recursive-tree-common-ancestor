@@ -44,7 +44,7 @@ def draw_pair(ax, u, v, panel):
                        linewidth=1.15, zorder=4)
         ax.text(x, y, str(label), ha="center", va="center", fontsize=8.5,
                 color="white" if endpoint else ink, zorder=5)
-    ax.set_title(f"({panel})   Pair {u} and {v} meets at {common}", fontsize=9, loc="center", pad=2)
+    ax.set_title(f"({panel})   Vertices {u} and {v} meet at {common}", fontsize=9, loc="center", pad=2)
     ax.set(xlim=(-1.55, 1.25), ylim=(-0.20, 2.46), aspect="equal")
     ax.axis("off")
 

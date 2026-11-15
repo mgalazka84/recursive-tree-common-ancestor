@@ -25,19 +25,23 @@ def finite_curves(n):
     jmax = min(n, ceil(exp(2.55 * sqrt(length))))
     upper = np.zeros(jmax)
     for i in range(n, 1, -1):
-        if i <= jmax:
-            upper[i - 1] = mass[k_center + 1:].sum()
         p = 1.0 / i
         mass[-1] += p * mass[-2]
         mass[1:-1] = (1.0 - p) * mass[1:-1] + p * mass[:-2]
         mass[0] *= 1.0 - p
-    upper[0] = mass[k_center + 1:].sum()
+        if i <= jmax:
+            # After adding B_i the numerator is P(S_{i,n} > k_center).
+            upper[i - 1] = mass[k_center + 1:].sum()
     tails = np.cumsum(mass[::-1])[::-1]
+    # B_1 equals one, so P(S_{1,n} > k_center) = P(S_{2,n} >= k_center).
+    denominator = tails[k_center]
+    upper[0] = denominator
     assert abs(tails[0] - 1.0) < 2e-12
     assert np.all(np.diff(upper) <= 1e-13)
+    assert abs((upper[0] - upper[1]) - mass[k_center]) < 2e-12
     ks = np.arange(1, max_k + 1)
     x = np.log(np.arange(1, jmax + 1)) / sqrt(length)
-    return ks / length, mass[ks] / tails[ks], x, upper / tails[k_center]
+    return ks / length, mass[ks] / tails[ks], x, upper / denominator
 
 
 def draw():
@@ -50,7 +54,10 @@ def draw():
         a, root, y, surv = finite_curves(n)
         axes[0].plot(a, root, color=color, lw=1.15, marker=marker, ms=2.2, ls=style,
                      label=f'n = {n:,}')
-        axes[1].step(y, surv, where='post', color=color, lw=1.15, ls=style)
+        # The inclusive tail at log(j)/sqrt(log n) belongs to the interval on its left.
+        axes[1].step(y, surv, where='pre', color=color, lw=1.15, ls=style)
+        axes[1].plot(y[:4], surv[:4], ls='none', marker=marker, ms=3,
+                     color=color, clip_on=False)
     axes[0].plot(agrid, np.maximum(0, 1 - 1 / agrid), color='#242424',
                  lw=1.1, ls=(0,(4,2)), label='Limit')
     axes[1].plot(ygrid, [erfc(y / sqrt(2)) for y in ygrid],
